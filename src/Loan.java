@@ -24,7 +24,7 @@ public class Loan implements Serializable {
 
     // Default constructor - sets customer name, annual interest percentage, years, amount and date to default values.
     public Loan() {
-        this("", 0.0, 0, 0.0, "no date");
+        this("no name", 0.0, 0, 0.0, "no date");
     }
 
     // Getters
@@ -69,10 +69,14 @@ public class Loan implements Serializable {
 
     public void setYears(int years) {
         mYears = years;
+        calculateMonthlyPayment();
+        calculateTotalPayments();
     }
 
     public void setAmount(double amount) {
         mAmount = amount;
+        calculateMonthlyPayment();
+        calculateTotalPayments();
     }
 
     public void setDate(String date) {
@@ -80,13 +84,17 @@ public class Loan implements Serializable {
     }
 
     // Helper Methods
-
     // calculateMonthlyPayment - calculates the monthly payment based on loan amount, interest rate and number of years.
     private void calculateMonthlyPayment() {
         // Calculate monthly interest rate
         double interestRate = mInterestPercentage / 1200.0;
         // Calculate and story monthly payment
-        mMonthlyPayment =  (mAmount * interestRate) / (1.0 - Math.pow((1  + interestRate), -(mYears * 12)));
+        mMonthlyPayment =  (mAmount * interestRate) / (1.0 - Math.pow((1.0  + interestRate), -(mYears * 12)));
+    }
+
+    // calculateTotalPayments - calculates the total payment for the loan, based on monthly payment and number of years
+    public void calculateTotalPayments() {
+        mTotalPayments = mMonthlyPayment * mYears * 12.0;
     }
 
 }

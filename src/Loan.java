@@ -1,3 +1,33 @@
+/* Loan.java
+ * Author:  William Craycroft
+ * Module:  6
+ * Project: Lab 6
+ * Description: This class hold data representing a bank loan, and automatically calculates the loan's monthly and
+ *              total payments.
+ *
+ *      Instance variables:
+ *          mCustomerName (String) - The customer's full name
+ *          mInterestPercentage (double) - The loan's annual interest percentage
+ *          mYears (int) - The lifetime of the loan in years
+ *          mAmount (double) - The amount of the loan
+ *          mDate (String) - The date the loan was issued
+ *          mMonthlyPayment (double) - The monthly payment for the loan (calculated)
+ *          mTotalPayments (double) - The total payment for the loan (calculated)
+ *
+ *      Methods:
+ *          Constructors
+ *              Default constructor sets all variables aside from monthly and total payment to default values
+ *              Parameterized constructor taking all variables aside from monthly and total payment (calculated in setters)
+ *          setters and getters for all instance variables - interest, years and amount setters will also call both
+ *              calculate helper methods below
+ *          toString() - returns a String will all the loan information
+ *          equals(Object) - returns true if member variables are equal
+ *          calculateMonthlyPayment - Helper method: calculates and sets the monthly payment for the loan based on loan
+ *              amount, interest rate and number of years
+ *          calculateTotalPayments - Helper method calculates the total payment for the loan, based on monthly payment
+ *              and number of years
+ */
+
 import java.io.Serializable;
 import java.util.Objects;
 

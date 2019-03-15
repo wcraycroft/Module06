@@ -1,3 +1,27 @@
+/* LoanDemo.java
+ * Author:  William Craycroft
+ * Module:  6
+ * Project: Lab 6
+ * Problem Statement: This class demonstrates the ability to read and write Loan objects to and from a binary file using
+ *      the ObjectInputStream, ObjectOutputStream and a custom AppendingObjectOutputStream.
+ *
+ * Algorithm / Plan:
+ *      1. Create 3 Loan objects using parameterized constructor
+ *      2. Open file using ObjectOutputStream
+ *      3. Write 3 Loans to file
+ *      4. Close output stream
+ *      5. Create 2 Loan objects using default constructor and setters
+ *      6. Open file using AppendingObjectOutputStream(custom class, overrides header) with appending set to true
+ *      7. Write remaining 2 Loans to file
+ *      8. Close appending output stream
+ *      9. Open file using ObjectInputStream
+ *      10. Loop through all data in file (until EOFException is thrown)
+ *          For each loan object found, print Loan information to console
+ *          Add loan amount, monthly payment and total payment to a running sum stored for each value
+ *      11. Close input stream
+ *      12. Print amount, monthly payment and total payment sums to console.
+ */
+
 import java.io.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

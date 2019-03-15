@@ -1,3 +1,36 @@
+/* RandomNumbersIO.java
+ * Author:  William Craycroft
+ * Module:  6
+ * Project: Homework 6, Project 1
+ * Problem Statement: This class demonstrates the ability to read and write primitive data to and from a binary files
+ *      using both ObjectOutputStream and RandomAccessFile.
+ *
+ * Algorithm / Plan:
+ *      1. Open file as File object, check if File exists (from previous run)
+ *          If exists, delete old file
+ *      2. Open file with ObjectOutputStream
+ *      3. Write a random integer from 1-10 using Random to file
+ *      4. Repeat step 3 10 times total
+ *      5. Close stream
+ *      6. Open file with ObjectInputStream
+ *      7. Read integer from file and store in integer array
+ *      8. Repeat for all integers written to file (10)
+ *      9. Close stream
+ *      10. Sort integer array using selection sort method
+ *          Loop through entire array excluding last value
+ *              Loop through unsorted portion of array
+ *                  Find and store the index of the minimum value
+ *                  Swap the minimum value with the first value of unsorted portion of array
+ *      11. Print sorted random integers to console
+ *      12. Open file using RandomAccessFile (read/write)
+ *      13. Clear previous data on file by setting length to 0
+ *      14. Write and random integer from 1-10 to file, repeat 10 times total.
+ *      15. Move cursor to start of file using seek method
+ *      16. Read 10 integer values from file, storing them in array
+ *      17. Sort array using selection sort
+ *      18. Print sorted random integers to console
+ */
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -116,27 +149,32 @@ public class RandomNumbersIO {
 
     }
 
-
-    public static void selectionSort(int[] array) {
-        // Declarations
-        int indexMin;      // stores the index of the unsorted minimum value
-
-        // Loop through array, excluding last value
-        for (int i = 0; i < array.length - 1; i++) {
-            indexMin = i;
-            // Loop through unsorted section of array
-            for (int j = i + 1; j < array.length; j++) {
-                // If current value is smaller than the minimum value
-                if (array[j] < array[indexMin]) {
-                    // Set the minimum index to current index
-                    indexMin = j;
-                }
-                // Swap minimum value with first element
-                int temp = array[indexMin];
-                array[indexMin] = array[i];
-                array[i] = temp;
-            }   // end of unsorted for loop
-
-        }   // end of full array for loop
+    // Returns the minimum index in an array, past the given starting index
+    public static int indexOfMin(int[] arr, int startIndex) {
+        int min=Integer.MAX_VALUE, minIndex=0;
+        // Loop through array, starting at startIndex
+        for (int i = startIndex; i < arr.length; i++) {
+            // If minimum, set as new minimum and index
+            if (arr[i] < min) {
+                min = arr[i];
+                minIndex = i;
+            }
+        }
+        return minIndex;
     }
+
+    // Sorts the passed array using selection sort method
+    public static void selectionSort(int[] arr) {
+        int minIndex, temp;
+        // Loop through array, excluding last value
+        for (int i = 0; i < arr.length - 1; i++) {
+            // Find minimum index
+            minIndex = indexOfMin(arr, i);
+            // Swap minimum value with starting value for this loop
+            temp = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
+        }
+    }
+
 }

@@ -1,3 +1,32 @@
+/* PetDemo.java
+ * Author:  William Craycroft
+ * Module:  6
+ * Project: Homework 6, Project 2
+ * Problem Statement: This class demonstrates the ability to read and write objects to and from a binary data file using
+ *      the ObjectOutputStream.
+ *
+ * Algorithm / Plan:
+ *      1. Prompt user for the file name.
+ *      2. Prompt the user whether they would like to read from or write to the file.
+ *      3. If writing to file...
+ *          Open File object and check if file currently exists.
+ *          If exists, open the file using AppendingObjectOutputStream (custom class that overrides header)
+ *          Else, open the file using Java's ObjectOutputStream
+ *          Prompt user for Pet information (name, age, weight)
+ *          Create a new Pet object using user inputs and write Pet object to file
+ *          Prompt user if they would like to enter another Pet
+ *          If yes, go back to Pet information prompt and repeat
+ *          Close file
+ *      4. If reading from file...
+ *          Open File object and check if file currently exists. Exit if not
+ *          Open file for reading
+ *          Loop through all data in file until Exception is thrown...
+ *              Print Pet information by calling Pet's toString method
+ *              After 6 Pets have been read, stop and prompt user to continue
+ *          Close file
+ *      5. If user input is invalid, print error message and exit.
+ */
+
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,7 +50,7 @@ public class PetDemo {
         // File I/O
         String fileName;    // file name input by user to read or write from
         int choice = 0;     // user selection for reading or writing, 1 = write, 2 = read
-        String cont = "";   // user selection to continue wrting pets, 'y' = continue
+        String cont;   // user selection to continue writing pets, 'y' = continue
         ObjectOutputStream outputStream = null;     // output stream used to write to file
         ObjectInputStream inputStream = null;       // input stream used to read from file
         File petFile;       // File object used to determine if file exists or not

@@ -1,11 +1,31 @@
+/* Pet.java
+ * Author:  William Craycroft
+ * Module:  6
+ * Project: Lab 6
+ * Description: This class stores data representing a pet, including name, age and weight.
+ *
+ *      Instance variables:
+ *          mName (String) - The pet's name
+ *          mAge (int) - The pet's age in years
+ *          mWeight (double) - The pet's weight in lbs
+ *
+ *      Methods:
+ *          Constructors
+ *              Default constructor sets name to "no name" and age/weight to 0
+ *              Parameterized constructor taking name, age and weight
+ *          setters and getters for all instance variables
+ *          toString() - e.g. "Pet{Name='Odie', Age=9, Weight=35.0}"
+ *          equals(Object) - returns true if member variables are equal
+ */
+
 import java.io.Serializable;
 import java.util.Objects;
 
 public class Pet implements Serializable {
 
-    private String mName;
-    private int mAge;
-    private double mWeight;
+    private String mName;       // The pet's name
+    private int mAge;           // The pet's age in years
+    private double mWeight;     // The pet's weight in lbs
 
     // Parameterized constructor - stores name, age and weight
     public Pet(String name, int age, double weight) {

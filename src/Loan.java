@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Loan implements Serializable {
 
@@ -81,6 +82,38 @@ public class Loan implements Serializable {
 
     public void setDate(String date) {
         mDate = date;
+    }
+
+
+    // equals
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Loan loan = (Loan) o;
+        return Double.compare(loan.mInterestPercentage, mInterestPercentage) == 0 &&
+                mYears == loan.mYears &&
+                Double.compare(loan.mAmount, mAmount) == 0 &&
+                Double.compare(loan.mMonthlyPayment, mMonthlyPayment) == 0 &&
+                Double.compare(loan.mTotalPayments, mTotalPayments) == 0 &&
+                Objects.equals(mCustomerName, loan.mCustomerName) &&
+                Objects.equals(mDate, loan.mDate);
+    }
+
+    // toString
+    public String toString() {
+        return "Loan{" +
+                "Customer Name='" + mCustomerName + '\'' +
+                ", Interest Percentage=" + mInterestPercentage +
+                ", Years=" + mYears +
+                ", Amount=" + mAmount +
+                ", Date='" + mDate + '\'' +
+                ", Monthly Payment=" + mMonthlyPayment +
+                ", Total Payments=" + mTotalPayments +
+                '}';
     }
 
     // Helper Methods

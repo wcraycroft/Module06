@@ -99,25 +99,40 @@ public class LoanDemo {
             System.exit(0);
         }
 
-        // Clear Loan object array
-        for (Loan loan : loans) {
-            loan = null;
-        }
+        // Read objects from file and display in report
 
+        // Report Header
+        System.out.println("                  Annual                     Monthly      Total                  ");
+        System.out.println(" Customer Name    Prcnt  Yrs   Loan-Amount   Payment   Loan Payments   Loan-Date ");
+        System.out.println("----------------  -----  ---  ------------  ---------  -------------  -----------");
+
+        // Row data
         // Instantiate input stream
         try {
-            int i = 0;  // index used to store Loan objects into array or variable size
             inStream = new ObjectInputStream(new FileInputStream(fileName));
 
-            // Read any number Loans back into array (will throw EOFException when done)
+            // Read each loan object, print formatted row, add payments to totals (will throw EOFException when done)
             while (true) {
-                loans[i] = (Loan) inStream.readObject();
-                i++;
+                // Get loan object from file
+                Loan loan = (Loan) inStream.readObject();
+                // Print row
+                System.out.printf("%-16s  %5s  %3d  %12s  %9s  %13s  %-11s\n",
+                        loan.getCustomerName(),
+                        oneDP.format(loan.getInterestPercentage()),
+                        loan.getYears(),
+                        currency.format(loan.getAmount()),
+                        currency.format(loan.getMonthlyPayment()),
+                        currency.format(loan.getTotalPayments()),
+                        loan.getDate());
+                // Add to totals sums
+                amountSum += loan.getAmount();
+                monthlySum += loan.getMonthlyPayment();
+                totalSum += loan.getTotalPayments();
             }
 
         }
         catch (EOFException e) {
-            System.out.println("File reading complete.");
+            // Expected behavior, no action necessary.
         }
         catch (FileNotFoundException e) {
             System.err.println("Error opening file " + fileName);
@@ -144,27 +159,7 @@ public class LoanDemo {
             System.exit(0);
         }
 
-        // Write formatted report
-        // Header (3 lines)
-        System.out.println("                  Annual                     Monthly      Total                  ");
-        System.out.println(" Customer Name    Prcnt  Yrs   Loan-Amount   Payment   Loan Payments   Loan-Date ");
-        System.out.println("----------------  -----  ---  ------------  ---------  -------------  -----------");
-        // Row Data (and total calculations)
-        for (Loan loan : loans) {
-            System.out.printf("%-16s  %5s  %3d  %12s  %9s  %13s  %-11s\n",
-                    loan.getCustomerName(),
-                    oneDP.format(loan.getInterestPercentage()),
-                    loan.getYears(),
-                    currency.format(loan.getAmount()),
-                    currency.format(loan.getMonthlyPayment()),
-                    currency.format(loan.getTotalPayments()),
-                    loan.getDate());
-            // Add to totals sums
-            amountSum += loan.getAmount();
-            monthlySum += loan.getMonthlyPayment();
-            totalSum += loan.getTotalPayments();
-        }
-        // Totals (2 lines)
+        // Print Totals
         System.out.printf("%42s  %9s  %13s\n", "============", "=========", "=============");
         System.out.printf("%42s  %9s  %13s\n",
                 currency.format(amountSum),
